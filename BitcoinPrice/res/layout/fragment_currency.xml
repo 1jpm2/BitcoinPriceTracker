@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#6ceb60"
+    android:orientation="vertical" >
+     <Spinner
+        android:id="@+id/spinner1"
+   		android:layout_width="match_parent"
+        android:layout_height="40sp"
+        android:layout_centerInParent="true" 
+        android:gravity="center"	
+        android:background="#D8BFD8"
+        android:layout_marginLeft="55dp"
+        android:layout_marginRight="55dp"
+        android:layout_marginTop="65dp"
+        android:textSize="33sp"
+        android:entries="@array/currency_array"      />
+        
+ <TextView android:layout_width="fill_parent"
+         android:id="@+id/currencyChoice"
+        android:layout_height="wrap_content"
+          android:layout_above="@id/spinner1"
+        android:textSize="40sp"
+         android:gravity="center"	
+        android:text="@string/curr_text"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>
