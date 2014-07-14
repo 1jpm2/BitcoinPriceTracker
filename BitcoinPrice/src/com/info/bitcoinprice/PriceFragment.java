@@ -7,19 +7,24 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.info.bitcoinprice.adapter.*;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.info.bitcoinprice.CurrencyFragment;
 
 
 public class PriceFragment extends Fragment {
 	private static View rootView;
 	private static TextView price = null;
+	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -34,9 +39,29 @@ public class PriceFragment extends Fragment {
 	 private class JSONParse extends AsyncTask<String, String, JSONObject> {
 	    @Override
 	      protected void onPreExecute() {
+	    	 DisplayMetrics metrics = getResources().getDisplayMetrics();
+	   	  int width = metrics.widthPixels;
+	   	//  int height = metrics.heightPixels;
 	          super.onPreExecute();
 	           price = (TextView) rootView.findViewById(R.id.topR);
 	           price.setText("Loading...");
+	           price.setTextSize			(TypedValue.COMPLEX_UNIT_PX, 1);
+
+	           int size = 1; 
+
+	           do
+	           {
+	             float textWidth = price.getPaint().measureText("Loading...");
+
+	             if (textWidth < width)
+	            	 price.setTextSize(++size);
+	             else
+	             {
+	            	 price.setTextSize(--size);
+	               break;
+	             }
+	           }while(true);
+	           
 	    }
 	    @Override
 	      protected JSONObject doInBackground(String... args) {
@@ -60,6 +85,8 @@ public class PriceFragment extends Fragment {
 	    		   strNum = "\u00A5"+strNum;}
 	    	   else if(curr.equals("EUR")){
 	    		   strNum = "\u20ac"+strNum;}
+	    	   else if(curr.equals("CAD")){
+	    		   strNum = "\u0024"+strNum;}
 	    	   else { //GBP
 	    		   strNum = "\u00a3"+strNum;}
 	         
